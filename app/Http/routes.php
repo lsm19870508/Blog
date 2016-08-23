@@ -43,6 +43,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('post','PostController');
         Route::resource('tag','TagController');
         Route::get('upload','UploadController@index');
+
+        //admin upload
+        Route::post('upload/file','UploadController@uploadFile');
+        Route::delete('upload/file', 'UploadController@deleteFile');
+        Route::post('upload/folder', 'UploadController@createFolder');
+        Route::delete('upload/folder', 'UploadController@deleteFolder');
     });
 
     //Admin auth,Logging in and out
