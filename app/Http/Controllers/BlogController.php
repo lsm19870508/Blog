@@ -20,6 +20,12 @@ class BlogController extends Controller
         return view('blog.index', compact(('posts')));
     }
 
+    /**
+     * @api {get} /blog/{slug}
+     * @apiName showPost
+     * @apiGroup blog
+     * @apiDescription 展示索引{slug}的博客
+     */
     public function showPost($slug)
     {
         $post = Post::whereSlug($slug)->firstOrFail();

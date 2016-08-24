@@ -99,7 +99,6 @@ class TagController extends Controller
      * @apiName update
      * @apiGroup tag
      * @apiDescription Tag的编辑更新api
-     * @apiParam {String[]} Request 请求用数组.
      * @apiParam (Request){String} Tag 标签名.
      * @apiParam (Request){String} Title 标签标题.
      * @apiParam (Request){String} subtitle 标签子标题.

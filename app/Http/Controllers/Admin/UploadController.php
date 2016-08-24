@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class UploadController extends Controller
 {
@@ -19,7 +20,7 @@ class UploadController extends Controller
     }
 
     /**
-     * @api {get} /admin/UploadManager/index
+     * @api {get} /admin/upload
      * @apiName index
      * @apiGroup UploadManager
      * @apiDescription 展示文件子目录上传页页
@@ -32,6 +33,16 @@ class UploadController extends Controller
         return view('admin.upload.index', $data);
     }
 
+    /**
+     * @api {post} /admin/upload/folder
+     * @apiName createFolder
+     * @apiGroup upload
+     * @apiDescription 新建目录
+     * @apiParam {String} new_folder 新目录名.
+     * @apiParam {String} folder 所在目录名.
+     * @apiSuccess {String} success "Folder '$new_folder' created."
+     * @apiError {String} errors "An error occurred creating directory." and so on..
+     */
     public function createFolder(Requests\Admin\Upload\UploadNewFolderRequest $request)
     {
         $new_folder = $request->get('new_folder');
@@ -49,6 +60,16 @@ class UploadController extends Controller
                     ->withErrors([$error]);
     }
 
+    /**
+     * @api {delete} /admin/upload/file
+     * @apiName deleteFile
+     * @apiGroup upload
+     * @apiDescription 删除文件
+     * @apiParam {String} del_file 删除的文件名.
+     * @apiParam {String} folder 所在目录名.
+     * @apiSuccess {String} success "File '$del_file' deleted."
+     * @apiError {String} errors "An error occurred deleting file." and so on..
+     */
     public function deleteFile(Request $request)
     {
         $del_file = $request->get('del_file');
@@ -68,6 +89,16 @@ class UploadController extends Controller
                 ->withErrors([$error]);
     }
 
+    /**
+     * @api {delete} /admin/upload/folder
+     * @apiName deleteFolder
+     * @apiGroup upload
+     * @apiDescription 删除目录
+     * @apiParam {String} del_folder 需要删除的目录名.
+     * @apiParam {String} folder 所在目录名.
+     * @apiSuccess {String} success "Folder '$del_folder' deleted."
+     * @apiError {String} errors "An error occurred deleting directory." and so on..
+     */
     public function deleteFolder(Request $request)
     {
         $del_folder = $request->get('del_folder');
@@ -87,9 +118,19 @@ class UploadController extends Controller
                 ->withErrors([$error]);
     }
 
-    public function uploadFile(UploadFileRequest $request)
+    /**
+     * @api {post} /admin/upload/file
+     * @apiName uploadFile
+     * @apiGroup upload
+     * @apiDescription 删除文件
+     * @apiParam {String} file_name 上传的文件名.
+     * @apiParam {String} folder 所在目录名.
+     * @apiSuccess {String} success "File '$del_file' deleted."
+     * @apiError {String} errors "An error occurred deleting file." and so on..
+     */
+    public function uploadFile(Requests\Admin\Upload\UploadFileRequest $request)
     {
-        $file = $_FILES('file');
+        $file = $_FILES['file'];
         $fileName = $request->get('file_name');
         $fileName = $fileName ?: $file['name'];
         $path = str_finish($request->get('folder'),'/') . $fileName;

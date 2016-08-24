@@ -33,10 +33,10 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_dl/bootstrap/dist/fonts/**")
         .pipe(gulp.dest("public/assets/fonts"));
 
-    gulp.src("vendor/bower_dl/bootstrap/fontawesome/less/**")
-        .pipe(gulp.dest("public/assets/less/fontawesome"));
+    gulp.src("vendor/bower_dl/font-awesome/less/**")
+        .pipe(gulp.dest("resources/assets/less/fontawesome"));
 
-    gulp.src("vendor/bower_dl/bootstrap/fontawesome/fonts/**")
+    gulp.src("vendor/bower_dl/font-awesome/fonts/**")
         .pipe(gulp.dest("public/assets/fonts"));
 
     //拷贝datatables
@@ -50,6 +50,26 @@ gulp.task("copyfiles", function() {
 
     gulp.src(dtDir + 'bootstrap/3/dataTables.bootstrap.js')
         .pipe(gulp.dest('resources/assets/js/'));
+
+    // Copy selectize
+    gulp.src("vendor/bower_dl/selectize/dist/css/**")
+        .pipe(gulp.dest("public/assets/selectize/css"));
+
+    gulp.src("vendor/bower_dl/selectize/dist/js/standalone/selectize.min.js")
+        .pipe(gulp.dest("public/assets/selectize/"));
+
+    // Copy pickadate
+    gulp.src("vendor/bower_dl/pickadate/lib/compressed/themes/**")
+        .pipe(gulp.dest("public/assets/pickadate/themes/"));
+
+    gulp.src("vendor/bower_dl/pickadate/lib/compressed/picker.js")
+        .pipe(gulp.dest("public/assets/pickadate/"));
+
+    gulp.src("vendor/bower_dl/pickadate/lib/compressed/picker.date.js")
+        .pipe(gulp.dest("public/assets/pickadate/"));
+
+    gulp.src("vendor/bower_dl/pickadate/lib/compressed/picker.time.js")
+        .pipe(gulp.dest("public/assets/pickadate/"));
 });
  
  

@@ -9,7 +9,10 @@
         "laravel/framework": "5.2.*",
         "almasaeed2010/adminlte": "~2.0",
         "tymon/jwt-auth": "0.5.x",
-        "dflydev/apache-mime-types": "^1.0"
+        "dflydev/apache-mime-types": "^1.0",
+        "doctrine/dbal": "^2.5",
+        "michelf/php-markdown": "^1.6",
+        "michelf/php-smartypants": "1.6.0-beta1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
