@@ -10,6 +10,12 @@ class Post extends Model
     //
     protected $dates = ['published_at'];
 
+    //在Post类的$dates 属性后添加$fillable属性
+    protected $fillable = [
+        'title','subtitle','content_raw','page_image','meata_description','layout',
+        'is_draft','published_at',
+    ];
+
     /**
      * The many-to-many relationship between posts and tags.
      */
@@ -80,5 +86,29 @@ class Post extends Model
         }
 
         $this->tags()->detach();
+    }
+
+    /**
+     * Return the date protion of published_at
+     */
+    public function getPublishDateAttribute($value)
+    {
+        return $this->published_at->format('M-j-Y');
+    }
+
+    /**
+     * Return the time portion of published_at
+     */
+    public function getPublishTimeAttribute($value)
+    {
+        return $this->published_at->format('g:i A');
+    }
+
+    /**
+     * Alias for content_raw
+     */
+    public function getContentAttribute($value)
+    {
+        return $this->content_raw;
     }
 }
