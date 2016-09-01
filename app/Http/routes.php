@@ -40,7 +40,7 @@ Route::group(['middleware' => ['web']], function () {
        return redirect('/admin/post');
     });
     Route::group(['namespace' => 'Admin', 'middleware' => 'auth', 'prefix'=>'admin'],function(){
-        Route::resource('post','PostController');
+        Route::resource('post','PostController',['except' => 'show']);
         Route::resource('tag','TagController');
         Route::get('upload','UploadController@index');
 

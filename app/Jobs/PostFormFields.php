@@ -67,14 +67,19 @@ class PostFormFields extends Job implements ShouldQueue
             $fields['publish_time'] = $when->format('g:i A');
         }
 
+        //old(Value,Default) 旧输入数据
+        //当用户提交表单失败后laravel会自动把用户的输入数据闪存到一次性的session里面（这个数据一刷新就会丢失，故称为一次性数据）。
+        //那么old('input_name')就可以取出session中的闪存数据，从而避让让用户重新输入。
         foreach ($fields as $fieldName => $fieldValue) {
             $fields[$fieldName] = old($fieldName, $fieldValue);
         }
 
-        return array_merge(
+        $fields = array_merge(
             $fields,
             ['allTags' => Tag::lists('tag')->all()]
         );
+
+        return $fields;
     }
 
     /**
@@ -95,7 +100,7 @@ class PostFormFields extends Job implements ShouldQueue
             $fields[$field] = $post->{$field};
         }
 
-        $field['tags'] = $post->tags()->lists('tag')->all();
+        $fields['tags'] = $post->tags()->lists('tag')->all();
 
         return $fields;
     }

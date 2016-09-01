@@ -46,6 +46,20 @@ class PostController extends Controller
     }
 
     /**
+     * Show the post edit form
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $data = $this->dispatch(new PostFormFields($id));
+
+        dd($data);
+        return view('admin.post.edit',$data);
+    }
+
+    /**
      * Update the Post
      *
      * @param PostUpdateRequest $request
@@ -53,6 +67,36 @@ class PostController extends Controller
      */
     public function update(Requests\Admin\Blog\PostUpdateRequest $request,$id)
     {
+        $post = Post::findOrFail($id);
+        $post->fill($request->postFillData());
+        $post->save();
+        $post->syncTags($request->get('tags',[]));
 
+        if ($request->action === 'continue') {
+            return redirect()
+                        ->back()
+                        ->withSuccess('Post saved.');
+        }
+
+        return redirect()
+                        ->route('admin.post.index')
+                        ->withSuccess('Post saved.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->tags()->detach();
+        $post->delete();
+
+        return redirect()
+                        ->route('admin.post.index')
+                        ->withSuccess('Post deleted.');
     }
 }
