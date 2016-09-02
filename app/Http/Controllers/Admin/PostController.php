@@ -55,7 +55,6 @@ class PostController extends Controller
     {
         $data = $this->dispatch(new PostFormFields($id));
 
-        dd($data);
         return view('admin.post.edit',$data);
     }
 

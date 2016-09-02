@@ -6,13 +6,10 @@ use App\Jobs\Job;
 use App\Models\Post;
 use App\Models\Tag;
 use Carbon\Carbon;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Bus\SelfHandling;
 
-class PostFormFields extends Job implements ShouldQueue
+class PostFormFields extends Job implements SelfHandling
 {
-    use InteractsWithQueue, SerializesModels;
 
     /**
      * The id (if any) of the Post row
